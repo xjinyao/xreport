@@ -22,7 +22,11 @@ export default class BgcolorTool extends Tool {
             <span class="sr-only">${window.i18n.tools.bgColor.changeMenu}</span>
         </button>`);
         const ul = $(`<ul class="dropdown-menu" role="menu" style="padding: 1px;"></ul>`);
-        const colorContainer = $(`<li></li>`);
+        const colorContainer = $(`<li><div class="input-group colorpicker-component">
+            <input type="text" value="#00AABB" class="form-control" style="width: 120px;padding: 3px;height: 29px;vertical-align: top"/>
+            <span class="input-group-addon" style="width: 22px"><i></i></span>
+        </div></li>`);
+
         ul.append(colorContainer);
         colorContainer.colorpicker({
             color: '#000',

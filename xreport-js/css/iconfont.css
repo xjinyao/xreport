@@ -1,0 +1,330 @@
+@font-face {
+    font-family: "xreport";
+    src: url('iconfont.eot'); /* IE9*/
+    src: url('iconfont.ttf') format('truetype');
+}
+
+.xreport {
+    font-family: "xreport" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.xreport-setting:before {
+    content: "\e603";
+}
+
+.xreport-plus:before {
+    content: "\e608";
+}
+
+.xreport-shareconnection:before {
+    content: "\e660";
+}
+
+.xreport-bar:before {
+    content: "\e66b";
+}
+
+.xreport-bgcolor2:before {
+    content: "\e76c";
+}
+
+.xreport-crosstab:before {
+    content: "\e60b";
+}
+
+.xreport-subreport:before {
+    content: "\e64f";
+}
+
+.xreport-barcode:before {
+    content: "\e6f8";
+}
+
+.xreport-underline:before {
+    content: "\e8ab";
+}
+
+.xreport-horizontal-bar:before {
+    content: "\e62d";
+}
+
+.xreport-scatter:before {
+    content: "\e632";
+}
+
+.xreport-sqlds:before {
+    content: "\e6b6";
+}
+
+.xreport-qrcode:before {
+    content: "\e72c";
+}
+
+.xreport-bgcolor:before {
+    content: "\e62c";
+}
+
+.xreport-fontsize:before {
+    content: "\e63f";
+}
+
+.xreport-fontfamily:before {
+    content: "\e618";
+}
+
+.xreport-area:before {
+    content: "\e9d7";
+}
+
+.xreport-italic:before {
+    content: "\eb31";
+}
+
+.xreport-bold:before {
+    content: "\e61f";
+}
+
+.xreport-minus:before {
+    content: "\e60c";
+}
+
+.xreport-methodds:before {
+    content: "\e69c";
+}
+
+.xreport-print1:before {
+    content: "\e62a";
+}
+
+.xreport-database:before {
+    content: "\e693";
+}
+
+.xreport-bubble:before {
+    content: "\e6b0";
+}
+
+.xreport-x-xlsx:before {
+    content: "\e690";
+}
+
+.xreport-copy:before {
+    content: "\e62f";
+}
+
+.xreport-pie:before {
+    content: "\e602";
+}
+
+.xreport-save:before {
+    content: "\e86f";
+}
+
+.xreport-open:before {
+    content: "\e624";
+}
+
+.xreport-deletecolumn:before {
+    content: "\e6f3";
+}
+
+.xreport-deleterow:before {
+    content: "\e6f4";
+}
+
+.xreport-insertrow:before {
+    content: "\e754";
+}
+
+.xreport-property:before {
+    content: "\e675";
+}
+
+.xreport-aligntop:before {
+    content: "\e623";
+}
+
+.xreport-alignbottom:before {
+    content: "\e625";
+}
+
+.xreport-alignmiddle:before {
+    content: "\e627";
+}
+
+.xreport-clean:before {
+    content: "\e628";
+}
+
+.xreport-forecolor:before {
+    content: "\e670";
+}
+
+.xreport-footer-repeat:before {
+    content: "\e62b";
+}
+
+.xreport-pdf:before {
+    content: "\e68f";
+}
+
+.xreport-print:before {
+    content: "\e633";
+}
+
+.xreport-first:before {
+    content: "\e629";
+}
+
+.xreport-alignleft:before {
+    content: "\e634";
+}
+
+.xreport-alignright:before {
+    content: "\e639";
+}
+
+.xreport-merge:before {
+    content: "\e63d";
+}
+
+.xreport-redo:before {
+    content: "\e61c";
+}
+
+.xreport-mixchart:before {
+    content: "\e669";
+}
+
+.xreport-import:before {
+    content: "\e609";
+}
+
+.xreport-clean-content:before {
+    content: "\e604";
+}
+
+.xreport-undo:before {
+    content: "\e74a";
+}
+
+.xreport-title:before {
+    content: "\e712";
+}
+
+.xreport-no-border:before {
+    content: "\e600";
+}
+
+.xreport-aligncenter:before {
+    content: "\e888";
+}
+
+.xreport-word:before {
+    content: "\e605";
+}
+
+.xreport-summary:before {
+    content: "\e749";
+}
+
+.xreport-doughnut:before {
+    content: "\e88c";
+}
+
+.xreport-preview:before {
+    content: "\e60f";
+}
+
+.xreport-clean-style:before {
+    content: "\e64b";
+}
+
+.xreport-line:before {
+    content: "\e695";
+}
+
+.xreport-leaf:before {
+    content: "\e6bb";
+}
+
+.xreport-21print:before {
+    content: "\e644";
+}
+
+.xreport-height:before {
+    content: "\e610";
+}
+
+.xreport-radar:before {
+    content: "\e671";
+}
+
+.xreport-image:before {
+    content: "\e626";
+}
+
+.xreport-bottom-border:before {
+    content: "\e61e";
+}
+
+.xreport-top-border:before {
+    content: "\e61d";
+}
+
+.xreport-full-border:before {
+    content: "\e620";
+}
+
+.xreport-left-border:before {
+    content: "\e621";
+}
+
+.xreport-right-border:before {
+    content: "\e622";
+}
+
+.xreport-next:before {
+    content: "\e60d";
+}
+
+.xreport-prev:before {
+    content: "\e606";
+}
+
+.xreport-pdf-printer:before {
+    content: "\e607";
+}
+
+.xreport-forecolor1:before {
+    content: "\e601";
+}
+
+.xreport-end:before {
+    content: "\e60a";
+}
+
+.xreport-insert-column:before {
+    content: "\e619";
+}
+
+.xreport-polar:before {
+    content: "\e60e";
+}
+
+.xreport-width:before {
+    content: "\e611";
+}
+
+.xreport-header-repeat:before {
+    content: "\e696";
+}
+
+.xreport-paste:before {
+    content: "\e612";
+}
+

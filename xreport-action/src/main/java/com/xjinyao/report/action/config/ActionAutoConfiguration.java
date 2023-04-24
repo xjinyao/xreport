@@ -60,11 +60,13 @@ public class ActionAutoConfiguration {
 	@Bean
 	public HtmlPreviewServletAction htmlPreviewServletAction(ExportManager exportManager,
 															 ReportBuilder reportBuilder,
-															 ReportRender reportRender) {
+															 ReportRender reportRender,
+															 XReportProperties xReportProperties) {
 		HtmlPreviewServletAction htmlPreviewServletAction = new HtmlPreviewServletAction();
 		htmlPreviewServletAction.setExportManager(exportManager);
 		htmlPreviewServletAction.setReportBuilder(reportBuilder);
 		htmlPreviewServletAction.setReportRender(reportRender);
+		htmlPreviewServletAction.setGatewayUrlPrefix(xReportProperties.getGatewayUrlPrefix());
 		return htmlPreviewServletAction;
 	}
 

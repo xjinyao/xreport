@@ -59,6 +59,13 @@ export default class SaveDialog {
         visibleGroup.append(this.visibleEditor);
         body.append(visibleGroup);
 
+        const previewImmediatelyLoadGroup = $(`<div class="form-group input-group"><label class="input-group-addon">${window.i18n.dialog.save.previewImmediatelyLoad}:</label></div>`);
+        this.previewImmediatelyLoadEditor = $(`<select class="form-control">`);
+        this.previewImmediatelyLoadEditor.append(`<option value="true">${window.i18n.dialog.save.params.dict.yes}</option>`);
+        this.previewImmediatelyLoadEditor.append(`<option value="false">${window.i18n.dialog.save.params.dict.no}</option>`);
+        previewImmediatelyLoadGroup.append(this.previewImmediatelyLoadEditor);
+        body.append(previewImmediatelyLoadGroup);
+
         const descriptionGroup = $(`<div class="form-group input-group"><label class="input-group-addon">${window.i18n.dialog.save.description}:</label></div>`);
         this.descriptionEditor = $(`<textarea class="form-control"></textarea>`);
         descriptionGroup.append(this.descriptionEditor);
@@ -197,6 +204,7 @@ export default class SaveDialog {
             }
             let isTemplate = _this.isTemplateEditor.val();
             let visible = _this.visibleEditor.val();
+            let previewImmediatelyLoad = _this.previewImmediatelyLoadEditor.val();
             let description = _this.descriptionEditor.val();
             if (description === '') {
                 alert(`${window.i18n.dialog.save.descriptionTip}`);
@@ -262,6 +270,7 @@ export default class SaveDialog {
                     content: _this.content,
                     isTemplate: isTemplate,
                     visible: visible,
+                    previewImmediatelyLoad: previewImmediatelyLoad,
                     previewParamsDeclarationConfig: previewParamsDeclarationConfig,
                 },
                 type: 'POST',
@@ -297,6 +306,7 @@ export default class SaveDialog {
                     _this.reportNameEditor.val(res.name);
                     _this.isTemplateEditor.val(`${res.isTemplate}`);
                     _this.visibleEditor.val(`${res.visible}`);
+                    _this.previewImmediatelyLoadEditor.val(`${res.previewImmediatelyLoad}`);
                     _this.descriptionEditor.val(res.description);
                     _this.fileEditor.val(res.fileName);
                     _this.reportTypeSelect.val(`${res.type}`);
@@ -356,6 +366,7 @@ export default class SaveDialog {
             this.reportNameEditor.val('');
             this.isTemplateEditor.val("false");
             this.visibleEditor.val("true");
+            this.previewImmediatelyLoadEditor.val("true");
             this.descriptionEditor.val('');
             this.fileEditor.val('');
             this.reportTypeSelect.empty();

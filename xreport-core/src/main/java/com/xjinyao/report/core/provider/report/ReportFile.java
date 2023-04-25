@@ -20,6 +20,7 @@ public class ReportFile {
 	private String description;
 	private Boolean isTemplate;
 	private Boolean visible;
+	private Boolean previewImmediatelyLoad;
 	private String previewParamsDeclarationConfig;
 	private Date updateDate;
 
@@ -29,13 +30,15 @@ public class ReportFile {
 	}
 
 	@Tolerate
-	public ReportFile(String type, String name, String fileName, String description, Boolean isTemplate, Boolean visible, Date updateDate) {
+	public ReportFile(String type, String name, String fileName, String description, Boolean isTemplate, Boolean visible,
+					  Boolean previewImmediatelyLoad, Date updateDate) {
 		this.type = type;
 		this.name = name;
 		this.fileName = fileName;
 		this.description = description;
 		this.isTemplate = isTemplate;
 		this.visible = visible;
+		this.previewImmediatelyLoad = previewImmediatelyLoad;
 		this.updateDate = updateDate;
 	}
 

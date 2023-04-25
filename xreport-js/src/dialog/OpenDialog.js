@@ -40,6 +40,7 @@ export default class OpenDialog {
             <td style="vertical-align: middle">${window.i18n.dialog.open.type}</td>
             <td style="vertical-align: middle">${window.i18n.dialog.open.isTemplate}</td>
             <td style="vertical-align: middle">${window.i18n.dialog.open.visible}</td>
+            <td style="vertical-align: middle">${window.i18n.dialog.open.previewImmediatelyLoad}</td>
             <td style="vertical-align: middle">${window.i18n.dialog.open.name}</td>
             <td style="vertical-align: middle">${window.i18n.dialog.open.fileName}</td>
             <td style="width: 150px;vertical-align: middle">${window.i18n.dialog.open.modDate}</td>
@@ -78,11 +79,13 @@ export default class OpenDialog {
                 let typeName = findDictLabel(file.type);
                 let isTemplate = file.isTemplate ? '是' : '否';
                 let visible = file.visible ? '是' : '否';
+                let previewImmediatelyLoad = file.previewImmediatelyLoad ? '是' : '否';
                 let tr = $(`<tr style="height: 35px;"></tr>`);
                 _this.fileTableBody.append(tr);
                 tr.append(`<td style="vertical-align: middle;">${typeName}</td>`);
                 tr.append(`<td style="vertical-align: middle;">${isTemplate}</td>`);
                 tr.append(`<td style="vertical-align: middle;">${visible}</td>`);
+                tr.append(`<td style="vertical-align: middle;">${previewImmediatelyLoad}</td>`);
                 tr.append(`<td style="vertical-align: middle;" title="${file.description}">${file.name}</td>`);
                 tr.append(`<td style="vertical-align: middle;">${file.fileName}</td>`);
                 tr.append(`<td style="vertical-align: middle;">${formatDate(file.updateDate)}</td>`);

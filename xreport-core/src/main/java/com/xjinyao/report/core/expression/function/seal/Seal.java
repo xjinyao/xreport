@@ -92,6 +92,7 @@ public class Seal {
 	 * 画公章
 	 *
 	 * @return 图片base64
+	 * @throws Exception 异常
 	 */
 	public String drawOfficialSeal() throws Exception {
 		//1.画布
@@ -181,6 +182,7 @@ public class Seal {
 	}
 
 	/**
+	 * 画弧font4圆
 	 * 绘制圆弧形文字
 	 *
 	 * @param g2d          画笔
@@ -274,6 +276,7 @@ public class Seal {
 	}
 
 	/**
+	 * 画弧font4椭圆形
 	 * 绘制椭圆弧形文字
 	 *
 	 * @param g2d        画笔
@@ -383,7 +386,13 @@ public class Seal {
 	}
 
 	/**
+	 * 画字体
 	 * 画文字
+	 *
+	 * @param g2d          2级残疾
+	 * @param circleWidth  圈宽度
+	 * @param circleHeight 圈高度
+	 * @param font         字体
 	 */
 	private static void drawFont(Graphics2D g2d, int circleWidth, int circleHeight, SealFont font) {
 		// 构造字体
@@ -406,6 +415,11 @@ public class Seal {
 
 	/**
 	 * 画圆
+	 *
+	 * @param g2d    2级残疾
+	 * @param circle 圆
+	 * @param x      x
+	 * @param y      y
 	 */
 	private static void drawCircle(Graphics2D g2d, SealCircle circle, int x, int y) {
 		if (circle == null) {
@@ -421,6 +435,7 @@ public class Seal {
 	}
 
 	/**
+	 * 结构字体
 	 * 生成字体
 	 *
 	 * @param font 章-字体参数

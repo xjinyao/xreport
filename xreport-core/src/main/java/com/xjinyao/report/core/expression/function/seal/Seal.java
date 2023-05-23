@@ -96,10 +96,15 @@ public class Seal {
 	 */
 	public String drawOfficialSeal() throws Exception {
 		//1.画布
-		BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
 		//2.画笔
 		Graphics2D g2d = bi.createGraphics();
+
+		bi = g2d.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+		g2d.dispose();
+		g2d = bi.createGraphics();
+
 
 		//2.1抗锯齿设置
 		//文本不抗锯齿，否则圆中心的文字会被拉长

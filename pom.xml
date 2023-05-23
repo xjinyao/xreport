@@ -11,7 +11,7 @@
 
     <name>xreport</name>
 
-    <url>https://github.com/Xiejinwei93/xreport.git</url>
+    <url>https://github.com/xjinyao/xreport.git</url>
 
     <licenses>
         <license>
@@ -36,9 +36,9 @@
 
     <scm>
         <tag>xreport-1.0.0.RELEASE</tag>
-        <url>https://github.com/Xiejinwei93/xreport.git</url>
-        <connection>scm:git:https://github.com/Xiejinwei93/xreport.git.git</connection>
-        <developerConnection>scm:git:https://github.com/Xiejinwei93/xreport.git</developerConnection>
+        <url>https://github.com/xjinyao/xreport.git</url>
+        <connection>scm:git:https://github.com/xjinyao/xreport.git.git</connection>
+        <developerConnection>scm:git:https://github.com/xjinyao/xreport.git</developerConnection>
     </scm>
 
     <profiles>

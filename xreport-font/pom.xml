@@ -6,7 +6,7 @@
     <parent>
         <groupId>io.github.xjinyao</groupId>
         <artifactId>xreport</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>xreport-font</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>io.github.xjinyao</groupId>
             <artifactId>xreport-core</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 </project>

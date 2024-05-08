@@ -8,146 +8,150 @@ import com.xjinyao.report.core.definition.value.Value;
 import com.xjinyao.report.core.exception.ReportComputeException;
 import com.xjinyao.report.core.model.Cell;
 import com.xjinyao.report.core.model.Row;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 谢进伟
  * @since 2023年03月01日
  */
+@Slf4j
 public class CellDownDuplicator {
-	private Cell cell;
-	private int cellRowNumber;
-	private DuplicateType duplicateType;
-	private BlankCellInfo blankCellInfo;
-	private boolean nonChild = false;
+    private Cell cell;
+    private int cellRowNumber;
+    private DuplicateType duplicateType;
+    private BlankCellInfo blankCellInfo;
+    private boolean nonChild = false;
 
-	public CellDownDuplicator(Cell cell, DuplicateType duplicateType, int cellRowNumber) {
-		this.cell = cell;
-		this.cellRowNumber = cellRowNumber;
-		this.duplicateType = duplicateType;
-	}
+    public CellDownDuplicator(Cell cell, DuplicateType duplicateType, int cellRowNumber) {
+        this.cell = cell;
+        this.cellRowNumber = cellRowNumber;
+        this.duplicateType = duplicateType;
+    }
 
-	public CellDownDuplicator(Cell cell, DuplicateType duplicateType, BlankCellInfo blankCellInfo, int cellRowNumber) {
-		this.cell = cell;
-		if (cellRowNumber == 0) {
-			this.cellRowNumber = cell.getRow().getRowNumber();
-		} else {
-			this.cellRowNumber = cellRowNumber;
-		}
-		this.duplicateType = duplicateType;
-		this.blankCellInfo = blankCellInfo;
-	}
+    public CellDownDuplicator(Cell cell, DuplicateType duplicateType, BlankCellInfo blankCellInfo, int cellRowNumber) {
+        this.cell = cell;
+        if (cellRowNumber == 0) {
+            this.cellRowNumber = cell.getRow().getRowNumber();
+        } else {
+            this.cellRowNumber = cellRowNumber;
+        }
+        this.duplicateType = duplicateType;
+        this.blankCellInfo = blankCellInfo;
+    }
 
-	public Cell duplicate(DownDuplicate downDuplicate, Cell newMainCell) {
-		switch (duplicateType) {
-			case Blank:
-				processBlankCell(downDuplicate, newMainCell);
-				break;
-			case Self:
-				processSelfBlankCell(downDuplicate);
-				break;
-			case IncreseSpan:
-				processIncreaseSpanCell(downDuplicate);
-				break;
-			case Duplicate:
-				throw new ReportComputeException("Invalid duplicator.");
-		}
-		return null;
-	}
+    public Cell duplicate(DownDuplicate downDuplicate, Cell newMainCell) {
+        switch (duplicateType) {
+            case Blank:
+                processBlankCell(downDuplicate, newMainCell);
+                break;
+            case Self:
+                processSelfBlankCell(downDuplicate);
+                break;
+            case IncreseSpan:
+                processIncreaseSpanCell(downDuplicate);
+                break;
+            case Duplicate:
+                throw new ReportComputeException("Invalid duplicator.");
+        }
+        return null;
+    }
 
-	public Cell duplicateChildrenCell(DownDuplicate downDuplicate, Cell leftParent, Cell originalCell, boolean parentNonChild) {
-		Cell newCell = cell.newCell();
-		Row newRow = downDuplicate.newRow(newCell.getRow(), cellRowNumber);
-		newRow.getCells().add(newCell);
-		newCell.getColumn().getCells().add(newCell);
-		newCell.setRow(newRow);
-		if (newCell.getLeftParentCell() == originalCell) {
-			newCell.setLeftParentCell(leftParent);
-			if (parentNonChild) {
-				nonChild = true;
-			}
-		} else {
-			nonChild = true;
-		}
-		Cell leftParentCell = newCell.getLeftParentCell();
-		if (leftParentCell != null) {
-			leftParentCell.addRowChild(newCell);
-		}
-		Cell topParentCell = newCell.getTopParentCell();
-		if (topParentCell != null) {
-			topParentCell.addColumnChild(newCell);
-		}
-		Context context = downDuplicate.getContext();
-		Value value = newCell.getValue();
-		if (value instanceof SimpleValue) {
-			newCell.setData(value.getValue());
-			newCell.setProcessed(true);
-			context.addReportCell(newCell);
-		} else {
-			if (nonChild) {
-				newCell.setValue(new SimpleValue(""));
-				context.addBlankCell(newCell);
-			} else {
-				context.addCell(newCell);
-			}
-		}
-		return newCell;
-	}
+    public Cell duplicateChildrenCell(DownDuplicate downDuplicate, Cell leftParent, Cell originalCell, boolean parentNonChild) {
+        Cell newCell = cell.newCell();
+        Row newRow = downDuplicate.newRow(newCell.getRow(), cellRowNumber);
+        newRow.getCells().add(newCell);
+        newCell.getColumn().getCells().add(newCell);
+        newCell.setRow(newRow);
+        if (newCell.getLeftParentCell() == originalCell) {
+            newCell.setLeftParentCell(leftParent);
+            if (parentNonChild) {
+                nonChild = true;
+            }
+        } else {
+            nonChild = true;
+        }
+        Cell leftParentCell = newCell.getLeftParentCell();
+        if (leftParentCell != null) {
+            leftParentCell.addRowChild(newCell);
+        }
+        Cell topParentCell = newCell.getTopParentCell();
+        if (topParentCell != null) {
+            topParentCell.addColumnChild(newCell);
+        }
+        Context context = downDuplicate.getContext();
+        Value value = newCell.getValue();
+        if (value instanceof SimpleValue) {
+            newCell.setData(value.getValue());
+            newCell.setProcessed(true);
+            context.addReportCell(newCell);
+        } else {
+            log.info("============>rowNumber{}==>{}==> cellNumber{}", nonChild, cell.getRow().getRowNumber(), cell.getColumn().getColumnNumber());
+            log.info("=======00000====>newCell:{}", newCell);
+            if (nonChild) {
+                newCell.setValue(new SimpleValue(""));
+                context.addBlankCell(newCell);
+            } else {
+                context.addCell(newCell);
+            }
+        }
+        return newCell;
+    }
 
-	private void processBlankCell(DownDuplicate downDuplicate, Cell newMainCell) {
-		Context context = downDuplicate.getContext();
-		Cell newBlankCell = cell.newRowBlankCell(context, blankCellInfo, downDuplicate.getMainCell());
-		if (blankCellInfo.isParent() && newMainCell.getLeftParentCell() == cell) {
-			newMainCell.setLeftParentCell(newBlankCell);
-		}
-		Row newRow = downDuplicate.newRow(newBlankCell.getRow(), cellRowNumber);
-		newRow.getCells().add(newBlankCell);
-		newBlankCell.getColumn().getCells().add(newBlankCell);
-		newBlankCell.setRow(newRow);
-		context.addReportCell(newBlankCell);
-	}
+    private void processBlankCell(DownDuplicate downDuplicate, Cell newMainCell) {
+        Context context = downDuplicate.getContext();
+        Cell newBlankCell = cell.newRowBlankCell(context, blankCellInfo, downDuplicate.getMainCell());
+        if (blankCellInfo.isParent() && newMainCell.getLeftParentCell() == cell) {
+            newMainCell.setLeftParentCell(newBlankCell);
+        }
+        Row newRow = downDuplicate.newRow(newBlankCell.getRow(), cellRowNumber);
+        newRow.getCells().add(newBlankCell);
+        newBlankCell.getColumn().getCells().add(newBlankCell);
+        newBlankCell.setRow(newRow);
+        context.addReportCell(newBlankCell);
+    }
 
-	private void processSelfBlankCell(DownDuplicate downDuplicate) {
-		Cell newBlankCell = cell.newCell();
-		newBlankCell.setValue(new SimpleValue(""));
-		Row newRow = downDuplicate.newRow(newBlankCell.getRow(), cellRowNumber);
-		newRow.getCells().add(newBlankCell);
-		newBlankCell.getColumn().getCells().add(newBlankCell);
-		newBlankCell.setRow(newRow);
-		Cell leftParentCell = newBlankCell.getLeftParentCell();
-		if (leftParentCell != null) {
-			leftParentCell.addRowChild(newBlankCell);
-		}
-		Cell topParentCell = newBlankCell.getTopParentCell();
-		if (topParentCell != null) {
-			topParentCell.addColumnChild(newBlankCell);
-		}
-		Context context = downDuplicate.getContext();
-		context.addBlankCell(newBlankCell);
-	}
+    private void processSelfBlankCell(DownDuplicate downDuplicate) {
+        Cell newBlankCell = cell.newCell();
+        newBlankCell.setValue(new SimpleValue(""));
+        Row newRow = downDuplicate.newRow(newBlankCell.getRow(), cellRowNumber);
+        newRow.getCells().add(newBlankCell);
+        newBlankCell.getColumn().getCells().add(newBlankCell);
+        newBlankCell.setRow(newRow);
+        Cell leftParentCell = newBlankCell.getLeftParentCell();
+        if (leftParentCell != null) {
+            leftParentCell.addRowChild(newBlankCell);
+        }
+        Cell topParentCell = newBlankCell.getTopParentCell();
+        if (topParentCell != null) {
+            topParentCell.addColumnChild(newBlankCell);
+        }
+        Context context = downDuplicate.getContext();
+        context.addBlankCell(newBlankCell);
+    }
 
 
-	private void processIncreaseSpanCell(DownDuplicate downDuplicate) {
-		int rowSpan = cell.getRowSpan();
-		rowSpan += downDuplicate.getRowSize();
-		if (rowSpan == 1) {
-			rowSpan++;
-		}
-		cell.setRowSpan(rowSpan);
-	}
+    private void processIncreaseSpanCell(DownDuplicate downDuplicate) {
+        int rowSpan = cell.getRowSpan();
+        rowSpan += downDuplicate.getRowSize();
+        if (rowSpan == 1) {
+            rowSpan++;
+        }
+        cell.setRowSpan(rowSpan);
+    }
 
-	public DuplicateType getDuplicateType() {
-		return duplicateType;
-	}
+    public DuplicateType getDuplicateType() {
+        return duplicateType;
+    }
 
-	public Cell getCell() {
-		return cell;
-	}
+    public Cell getCell() {
+        return cell;
+    }
 
-	public boolean isNonChild() {
-		return nonChild;
-	}
+    public boolean isNonChild() {
+        return nonChild;
+    }
 
-	public void setNonChild(boolean nonChild) {
-		this.nonChild = nonChild;
-	}
+    public void setNonChild(boolean nonChild) {
+        this.nonChild = nonChild;
+    }
 }

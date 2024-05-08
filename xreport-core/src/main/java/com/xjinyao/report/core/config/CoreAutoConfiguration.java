@@ -196,6 +196,11 @@ public class CoreAutoConfiguration {
 	}
 
 	@Bean
+	public ValuesFunction listValueFunction() {
+		return new ValuesFunction();
+	}
+
+	@Bean
 	public AvgFunction avgFunction() {
 		return new AvgFunction();
 	}

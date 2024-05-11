@@ -6,6 +6,7 @@ import com.xjinyao.report.core.build.Context;
 import com.xjinyao.report.core.expression.model.data.BindDataListExpressionData;
 import com.xjinyao.report.core.expression.model.data.ExpressionData;
 import com.xjinyao.report.core.model.Cell;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class ValuesFunction implements Function {
                             .orElse(StringUtils.EMPTY))
                     .collect(Collectors.toList()));
         }
-        if (index != null) {
+        if (index != null && !CollectionUtils.isEmpty(list)) {
             return list.get(index - 1);
         }
         return list;
